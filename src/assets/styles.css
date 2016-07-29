@@ -1,16 +1,11 @@
 body {
   padding-top: 50px;
-  padding-left: 50px;
+  padding-left: 100px;
 }
-#content {
-  width: 600px;
-  height: 400px;
-  background-color: #EFE;
-}
-.bubble {
+.bar {
+  width: 30px;
+  height: 50px;
+  background-color: tomato;
   display: inline-block;
-  fill: tomato;
-  fill-opacity: 0.5;
-  stroke: black;
-  stroke-weight: 1px;
+  margin-right: 5px;
 }
