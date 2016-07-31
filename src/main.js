@@ -4,13 +4,19 @@ import './assets/styles.css';
 
 const data = [ 100, 200, 150, 300, 400, 600 ]
 
-d3.select('body').selectAll('div')
+let svg = d3.select('#barChart').append('svg')
+  .attr('width', 600)
+  .attr('height', 250)
+
+svg.selectAll('rect')
   .data(data)
   .enter()
-  .append('div')
+  .append('rect')
   .attr('class', 'bar')
-  .style('height', data => data + 'px')
-
+  .attr('x', (d, index) => index * 20)
+  .attr('y', data => 250 - data)
+  .attr('width', 15)
+  .style('height', data => data)
 /*
 * ignore this code below - it's for webpack to know that this
 * code needs to be watched and not to append extra elements
