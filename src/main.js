@@ -2,42 +2,40 @@ import d3 from 'd3';
 import _ from 'lodash';
 import './assets/styles.css';
 
-const legislator = {
-  name: 'Ron Wyden',
-  sectors: [{
-    money_from_pacs: 589360,
-    money_from_indivs: 1109475,
-    sector_name: 'Finance/Insur/RealEst'
-  }, {
-    money_from_pacs: 782240,
-    money_from_indivs: 479476,
-    sector_name: 'Health'
-  }, {
-    money_from_pacs: 184676,
-    money_from_indivs: 638566,
-    sector_name: 'Lawyers & Lobbyists'
-  }, {
-    money_from_pacs: 104350,
-    money_from_indivs: 71799,
-    sector_name: 'Transportation'
-  }]
+const margin = {
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0
 }
 
-const data = [ 100, 200, 150, 300, 400, 600 ]
+const width = 700
+const height = 500
 
-let svg = d3.select('#barChart').append('svg')
-  .attr('width', 600)
-  .attr('height', 250)
+const indivualUrl = 'http://54.213.83.132/hackoregon/http/oregon_individual_contributors/10/'
+const committeeUrl = 'http://54.213.83.132/hackoregon/http/oregon_committee_contributors/10/'
+const businessUrl = 'http://54.213.83.132/hackoregon/http/oregon_business_contributors/10/'
 
-svg.selectAll('rect')
-  .data(data)
-  .enter()
-  .append('rect')
-  .attr('class', 'bar')
-  .attr('x', (d, index) => index * 20)
-  .attr('y', data => 250 - data)
-  .attr('width', 15)
-  .style('height', data => data)
+d3.json(indivualUrl, (error, data) => {
+    if (error) {
+      console.error(error)
+    }
+    else {
+      visualize(data)
+    }
+})
+
+function visualize(data) {
+  const sums = d3.map(data, d => d.sum)
+  console.log(sums)
+  const xScale = d3.scale.linear()
+  .domain([0, sums.length])
+  .range([0, width])
+  const yScale = d3.scale.linear()
+  .domain([0, d3.max(sums)])
+  .range([height, 0])
+  
+}
 /*
 * ignore this code below - it's for webpack to know that this
 * code needs to be watched and not to append extra elements
